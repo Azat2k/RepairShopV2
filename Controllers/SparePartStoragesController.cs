@@ -22,7 +22,7 @@ namespace RepairShopV2.Controllers
         // GET: SparePartStorages
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.SparePartStorage.Include(s => s.SparePart);
+            var dataContext = _context.SparePartStorages.Include(s => s.SparePart);
             return View(await dataContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace RepairShopV2.Controllers
                 return NotFound();
             }
 
-            var sparePartStorage = await _context.SparePartStorage
+            var sparePartStorage = await _context.SparePartStorages
                 .Include(s => s.SparePart)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sparePartStorage == null)
@@ -57,8 +57,9 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SparePartId,Quantity,LastUpdated")] SparePartStorage sparePartStorage)
+        public async Task<IActionResult> Create([Bind("Id,SparePartId,Quantity")] SparePartStorage sparePartStorage)
         {
+            sparePartStorage.LastUpdated = DateTime.Now; //Local time, not utc. 
             if (ModelState.IsValid)
             {
                 _context.Add(sparePartStorage);
@@ -77,7 +78,7 @@ namespace RepairShopV2.Controllers
                 return NotFound();
             }
 
-            var sparePartStorage = await _context.SparePartStorage.FindAsync(id);
+            var sparePartStorage = await _context.SparePartStorages.FindAsync(id);
             if (sparePartStorage == null)
             {
                 return NotFound();
@@ -91,13 +92,14 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SparePartId,Quantity,LastUpdated")] SparePartStorage sparePartStorage)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SparePartId,Quantity")] SparePartStorage sparePartStorage)
         {
             if (id != sparePartStorage.Id)
             {
                 return NotFound();
             }
 
+            sparePartStorage.LastUpdated = DateTime.Now; //Local time, not utc. 
             if (ModelState.IsValid)
             {
                 try
@@ -130,7 +132,7 @@ namespace RepairShopV2.Controllers
                 return NotFound();
             }
 
-            var sparePartStorage = await _context.SparePartStorage
+            var sparePartStorage = await _context.SparePartStorages
                 .Include(s => s.SparePart)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sparePartStorage == null)
@@ -146,10 +148,10 @@ namespace RepairShopV2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sparePartStorage = await _context.SparePartStorage.FindAsync(id);
+            var sparePartStorage = await _context.SparePartStorages.FindAsync(id);
             if (sparePartStorage != null)
             {
-                _context.SparePartStorage.Remove(sparePartStorage);
+                _context.SparePartStorages.Remove(sparePartStorage);
             }
 
             await _context.SaveChangesAsync();
@@ -158,7 +160,7 @@ namespace RepairShopV2.Controllers
 
         private bool SparePartStorageExists(int id)
         {
-            return _context.SparePartStorage.Any(e => e.Id == id);
+            return _context.SparePartStorages.Any(e => e.Id == id);
         }
     }
 }

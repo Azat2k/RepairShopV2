@@ -13,8 +13,7 @@ namespace RepairShopV2.Data
         }
         public DbSet<SparePart> SpareParts { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<Service> SparePartStorages { get; set; }
-        public DbSet<RepairShopV2.Models.SparePartStorage> SparePartStorage { get; set; } = default!;
+        public DbSet<SparePartStorage> SparePartStorages { get; set; }
 
     }
 }
