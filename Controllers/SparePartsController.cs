@@ -48,7 +48,7 @@ namespace RepairShopV2.Controllers
         // GET: SpareParts/Create
         public IActionResult Create()
         {
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id");
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", sparePart.ServiceId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             return View(sparePart);
         }
 

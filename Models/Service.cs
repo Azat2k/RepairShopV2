@@ -7,6 +7,6 @@
         public string Description { get; set; } = string.Empty;
         public TimeSpan LaborHours { get; set; }
         public decimal LaborPrice { get; set; }
-        public virtual ICollection<SparePart> Part { get; } = new List<SparePart>();
+        public virtual ICollection<SparePart> SparePart { get; } = new List<SparePart>();
     }
 }
