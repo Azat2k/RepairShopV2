@@ -82,7 +82,7 @@ namespace RepairShopV2.Controllers
             {
                 return NotFound();
             }
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", sparePart.ServiceId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             return View(sparePart);
         }
 
@@ -118,7 +118,7 @@ namespace RepairShopV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", sparePart.ServiceId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             return View(sparePart);
         }
 
