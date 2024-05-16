@@ -48,7 +48,7 @@ namespace RepairShopV2.Controllers
         // GET: SparePartStorages/Create
         public IActionResult Create()
         {
-            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Id");
+            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Name");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Id", sparePartStorage.SparePartId);
+            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Name", sparePartStorage.SparePartId);
             return View(sparePartStorage);
         }
 
@@ -83,7 +83,7 @@ namespace RepairShopV2.Controllers
             {
                 return NotFound();
             }
-            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Id", sparePartStorage.SparePartId);
+            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Name", sparePartStorage.SparePartId);
             return View(sparePartStorage);
         }
 
@@ -120,7 +120,7 @@ namespace RepairShopV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Id", sparePartStorage.SparePartId);
+            ViewData["SparePartId"] = new SelectList(_context.SpareParts, "Id", "Name", sparePartStorage.SparePartId);
             return View(sparePartStorage);
         }
 
