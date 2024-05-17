@@ -63,6 +63,18 @@ namespace RepairShopV2.Controllers
             {
                 _context.Add(sparePart);
                 await _context.SaveChangesAsync();
+
+                //Create SparePartStorage
+                var sparePartStorage = new SparePartStorage
+                {
+                    SparePartId = sparePart.Id,
+                    Quantity = 0,
+                    LastUpdated = DateTime.Now, 
+                };
+
+                _context.SparePartStorages.Add(sparePartStorage);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
