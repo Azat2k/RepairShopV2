@@ -14,6 +14,8 @@ namespace RepairShopV2.Data
         public DbSet<SparePart> SpareParts { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<SparePartStorage> SparePartStorages { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+
 
     }
 }

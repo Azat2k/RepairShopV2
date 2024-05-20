@@ -10,6 +10,8 @@
         public decimal SellPrice { get; set; }
         public int? ServiceId { get; set; }
         public Service? Service { get; set; }
+        public int? SupplierId { get; set; }
+        public Supplier? Supplier { get; set; }
         public virtual ICollection<SparePartStorage> SparePartStorage { get; } = new List<SparePartStorage>();
     }
 }
