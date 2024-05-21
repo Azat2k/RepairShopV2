@@ -22,7 +22,7 @@ namespace RepairShopV2.Controllers
         // GET: SpareParts
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.SpareParts.Include(s => s.Service);
+            var dataContext = _context.SpareParts.Include(s => s.Service).Include(s=>s.Supplier);
             return View(await dataContext.ToListAsync());
         }
 
@@ -49,6 +49,7 @@ namespace RepairShopV2.Controllers
         public IActionResult Create()
         {
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name");
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             return View();
         }
 
@@ -57,7 +58,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId")] SparePart sparePart)
+        public async Task<IActionResult> Create([Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId, SupplierId")] SparePart sparePart)
         {
             if (ModelState.IsValid)
             {
@@ -78,6 +79,8 @@ namespace RepairShopV2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
+
             return View(sparePart);
         }
 
@@ -95,6 +98,7 @@ namespace RepairShopV2.Controllers
                 return NotFound();
             }
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
             return View(sparePart);
         }
 
@@ -103,7 +107,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId")] SparePart sparePart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId,SupplierId")] SparePart sparePart)
         {
             if (id != sparePart.Id)
             {
@@ -131,6 +135,7 @@ namespace RepairShopV2.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
             return View(sparePart);
         }
 
