@@ -14,6 +14,8 @@
         public Supplier? Supplier { get; set; }
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
+        public int? ManufacturerId { get; set; }
+        public Manufacturer? Manufacturer { get; set; }
         public virtual ICollection<SparePartStorage> SparePartStorages { get; } = new List<SparePartStorage>();
     }
 }
