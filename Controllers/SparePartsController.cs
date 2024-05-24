@@ -22,7 +22,7 @@ namespace RepairShopV2.Controllers
         // GET: SpareParts
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.SpareParts.Include(s => s.Service).Include(s=>s.Category);
+            var dataContext = _context.SpareParts.Include(s => s.Service).Include(s=>s.Supplier).Include(s=>s.Category).Include(s=>s.Manufacturer);
             return View(await dataContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace RepairShopV2.Controllers
             }
 
             var sparePart = await _context.SpareParts
-                .Include(s => s.Service).Include(s=>s.Supplier).Include(s=>s.Category)
+                .Include(s => s.Service).Include(s=>s.Supplier).Include(s=>s.Category).Include(s=>s.Manufacturer)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sparePart == null)
             {
@@ -51,6 +51,8 @@ namespace RepairShopV2.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name");
+
             return View();
         }
 
@@ -59,7 +61,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId,SupplierId,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Create([Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId,SupplierId,CategoryId,ManufacturerId")] SparePart sparePart)
         {
             if (ModelState.IsValid)
             {
@@ -82,6 +84,7 @@ namespace RepairShopV2.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name",sparePart.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", sparePart.ManufacturerId);
 
             return View(sparePart);
         }
@@ -102,6 +105,8 @@ namespace RepairShopV2.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", sparePart.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", sparePart.ManufacturerId);
+
             return View(sparePart);
         }
 
@@ -110,7 +115,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId,SupplierId,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PartNumber,Name,Description,Price,SellPrice,ServiceId,SupplierId,CategoryId,ManufacturerId")] SparePart sparePart)
         {
             if (id != sparePart.Id)
             {
@@ -140,6 +145,8 @@ namespace RepairShopV2.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", sparePart.ServiceId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", sparePart.SupplierId);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", sparePart.CategoryId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Name", sparePart.ManufacturerId);
+
             return View(sparePart);
         }
 
@@ -152,7 +159,7 @@ namespace RepairShopV2.Controllers
             }
 
             var sparePart = await _context.SpareParts
-                .Include(s => s.Service).Include(s=>s.Supplier).Include(s => s.Category)
+                .Include(s => s.Service).Include(s=>s.Supplier).Include(s => s.Category).Include(s=>s.Manufacturer)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sparePart == null)
             {
