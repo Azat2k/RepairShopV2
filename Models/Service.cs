@@ -7,6 +7,8 @@
         public string Description { get; set; } = string.Empty;
         public TimeSpan LaborHours { get; set; }
         public decimal LaborPrice { get; set; }
+        public int? ServiceCategoryId { get; set; }
+        public ServiceCategory? ServiceCategory { get; set; }
         public virtual ICollection<SparePart> SpareParts { get; } = new List<SparePart>();
     }
 }

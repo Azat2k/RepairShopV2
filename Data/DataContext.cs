@@ -17,8 +17,8 @@ namespace RepairShopV2.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
-        
 
     }
 }
