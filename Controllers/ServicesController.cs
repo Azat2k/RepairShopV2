@@ -22,7 +22,8 @@ namespace RepairShopV2.Controllers
         // GET: Services
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Services.ToListAsync());
+            var datacontext = _context.Services.Include(s=>s.ServiceCategory);
+            return View(await datacontext.ToListAsync());
         }
 
         // GET: Services/Details/5
@@ -34,6 +35,7 @@ namespace RepairShopV2.Controllers
             }
 
             var service = await _context.Services
+                .Include(s=>s.ServiceCategory)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
@@ -46,6 +48,7 @@ namespace RepairShopV2.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
+            ViewData["ServiceCategoryId"] = new SelectList(_context.ServiceCategories, "Id", "Name");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,LaborHours,LaborPrice")] Service service)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,LaborHours,LaborPrice,ServiceCategoryId")] Service service)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,8 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ServiceCategoryId"] = new SelectList(_context.ServiceCategories, "Id", "Name",service.ServiceCategoryId);
+
             return View(service);
         }
 
@@ -78,6 +83,7 @@ namespace RepairShopV2.Controllers
             {
                 return NotFound();
             }
+            ViewData["ServiceCategoryId"] = new SelectList(_context.ServiceCategories, "Id", "Name", service.ServiceCategoryId);
             return View(service);
         }
 
@@ -86,7 +92,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,LaborHours,LaborPrice")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,LaborHours,LaborPrice,ServiceCategoryId")] Service service)
         {
             if (id != service.Id)
             {
@@ -113,6 +119,8 @@ namespace RepairShopV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ServiceCategoryId"] = new SelectList(_context.ServiceCategories, "Id", "Name", service.ServiceCategoryId);
+
             return View(service);
         }
 
@@ -125,6 +133,7 @@ namespace RepairShopV2.Controllers
             }
 
             var service = await _context.Services
+                .Include(s=>s.ServiceCategory)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {
