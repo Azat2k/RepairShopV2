@@ -22,8 +22,8 @@ namespace RepairShopV2.Controllers
         // GET: Services
         public async Task<IActionResult> Index()
         {
-            var datacontext = _context.Services.Include(s=>s.ServiceCategory);
-            return View(await datacontext.ToListAsync());
+            var dataContext = _context.Services.Include(s=>s.ServiceCategory);
+            return View(await dataContext.ToListAsync());
         }
 
         // GET: Services/Details/5
