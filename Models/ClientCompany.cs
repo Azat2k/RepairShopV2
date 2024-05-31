@@ -9,5 +9,6 @@
         public required string Email { get; set; }
         public required string Address { get; set; } 
         public string Notes { get; set; } = string.Empty;
+        public virtual ICollection<Client> Clients { get; } = new List<Client>();
     }
 }
