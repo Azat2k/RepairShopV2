@@ -20,5 +20,9 @@ namespace RepairShopV2.Data
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<ClientCompany> ClientCompanies { get; set; }
+        public DbSet<VehicleModel> VehicleModels { get; set; }
+        public DbSet<VehicleMake> VehicleMakes { get; set; }
+        public DbSet<ClientVehicle> ClientVehicles { get; set; }
+
     }
 }
