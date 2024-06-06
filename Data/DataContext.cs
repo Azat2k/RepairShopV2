@@ -24,5 +24,22 @@ namespace RepairShopV2.Data
         public DbSet<VehicleMake> VehicleMakes { get; set; }
         public DbSet<ClientVehicle> ClientVehicles { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Настройка внешних ключей для ClientVehicle
+            //modelBuilder.Entity<ClientVehicle>()
+            //    .HasOne(cv => cv.VehicleMake)
+            //    .WithMany(vm => vm.ClientVehicles)
+            //    .HasForeignKey(cv => cv.VehicleMakeId)
+            //    .OnDelete(DeleteBehavior.Restrict); // Используем Restrict вместо Cascade
+
+            modelBuilder.Entity<ClientVehicle>()
+                .HasOne(cv => cv.VehicleModel)
+                .WithMany(vm => vm.ClientVehicles)
+                .HasForeignKey(cv => cv.VehicleModelId)
+                .OnDelete(DeleteBehavior.NoAction); // Используем NoAction вместо Cascade или Restrict
+        }
     }
 }

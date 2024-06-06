@@ -422,7 +422,7 @@ namespace RepairShopV2.Migrations
                     b.HasOne("RepairShopV2.Models.VehicleModel", "VehicleModel")
                         .WithMany("ClientVehicles")
                         .HasForeignKey("VehicleModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Client");

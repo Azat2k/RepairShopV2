@@ -12,8 +12,8 @@ using RepairShopV2.Data;
 namespace RepairShopV2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240604044142_Initial")]
-    partial class Initial
+    [Migration("20240606043951_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -425,7 +425,7 @@ namespace RepairShopV2.Migrations
                     b.HasOne("RepairShopV2.Models.VehicleModel", "VehicleModel")
                         .WithMany("ClientVehicles")
                         .HasForeignKey("VehicleModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Client");
