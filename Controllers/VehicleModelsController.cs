@@ -48,7 +48,7 @@ namespace RepairShopV2.Controllers
         // GET: VehicleModels/Create
         public IActionResult Create()
         {
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id");
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", vehicleModel.VehicleMakeId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
@@ -82,7 +82,7 @@ namespace RepairShopV2.Controllers
             {
                 return NotFound();
             }
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", vehicleModel.VehicleMakeId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
@@ -118,7 +118,7 @@ namespace RepairShopV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", vehicleModel.VehicleMakeId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
