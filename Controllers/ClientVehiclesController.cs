@@ -51,10 +51,10 @@ namespace RepairShopV2.Controllers
         // GET: ClientVehicles/Create
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
-            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Id");
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id");
-            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Id");
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name");
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name");
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name");
+            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Name");
             return View();
         }
 
@@ -71,10 +71,10 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", clientVehicle.ClientId);
-            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Id", clientVehicle.ClientCompanyId);
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", clientVehicle.VehicleMakeId);
-            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Id", clientVehicle.VehicleModelId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", clientVehicle.ClientId);
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", clientVehicle.ClientCompanyId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", clientVehicle.VehicleMakeId);
+            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Name", clientVehicle.VehicleModelId);
             return View(clientVehicle);
         }
 
@@ -91,10 +91,10 @@ namespace RepairShopV2.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", clientVehicle.ClientId);
-            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Id", clientVehicle.ClientCompanyId);
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", clientVehicle.VehicleMakeId);
-            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Id", clientVehicle.VehicleModelId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", clientVehicle.ClientId);
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", clientVehicle.ClientCompanyId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", clientVehicle.VehicleMakeId);
+            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Name", clientVehicle.VehicleModelId);
             return View(clientVehicle);
         }
 
@@ -130,10 +130,10 @@ namespace RepairShopV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", clientVehicle.ClientId);
-            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Id", clientVehicle.ClientCompanyId);
-            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Id", clientVehicle.VehicleMakeId);
-            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Id", clientVehicle.VehicleModelId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", clientVehicle.ClientId);
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", clientVehicle.ClientCompanyId);
+            ViewData["VehicleMakeId"] = new SelectList(_context.VehicleMakes, "Id", "Name", clientVehicle.VehicleMakeId);
+            ViewData["VehicleModelId"] = new SelectList(_context.VehicleModels, "Id", "Name", clientVehicle.VehicleModelId);
             return View(clientVehicle);
         }
 
