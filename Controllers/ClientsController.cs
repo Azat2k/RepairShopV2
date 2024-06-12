@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,8 @@ namespace RepairShopV2.Controllers
         // GET: Clients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clients.ToListAsync());
+            var dataContext = _context.Clients.Include(c => c.ClientCompany);
+            return View(await dataContext.ToListAsync());
         }
 
         // GET: Clients/Details/5
@@ -34,6 +36,7 @@ namespace RepairShopV2.Controllers
             }
 
             var client = await _context.Clients
+                .Include(c => c.ClientCompany)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
@@ -46,6 +49,7 @@ namespace RepairShopV2.Controllers
         // GET: Clients/Create
         public IActionResult Create()
         {
+            ViewData["CompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name");
             return View();
         }
 
@@ -62,6 +66,8 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", client.CompanyId);
+
             return View(client);
         }
 
