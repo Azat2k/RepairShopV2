@@ -49,7 +49,7 @@ namespace RepairShopV2.Controllers
         // GET: Clients/Create
         public IActionResult Create()
         {
-            ViewData["CompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name");
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,DateOfBirth,Phone,Email,Address,CompanyId")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,DateOfBirth,Phone,Email,Address,ClientCompanyId")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace RepairShopV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", client.CompanyId);
+            ViewData["ClientCompanyId"] = new SelectList(_context.ClientCompanies, "Id", "Name", client.ClientCompanyId);
 
             return View(client);
         }
@@ -92,7 +92,7 @@ namespace RepairShopV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,DateOfBirth,Phone,Email,Address,CompanyId")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,DateOfBirth,Phone,Email,Address,ClientCompanyId")] Client client)
         {
             if (id != client.Id)
             {
@@ -131,6 +131,7 @@ namespace RepairShopV2.Controllers
             }
 
             var client = await _context.Clients
+                .Include(c => c.ClientCompany)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
