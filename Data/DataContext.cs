@@ -28,18 +28,36 @@ namespace RepairShopV2.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Настройка внешних ключей для ClientVehicle
+            modelBuilder.Entity<Client>()
+                .HasOne(c => c.ClientCompany)
+                .WithMany(cc => cc.Clients)
+                .HasForeignKey(c => c.ClientCompanyId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ClientVehicle>()
+                .HasOne(cv => cv.Client)
+                .WithMany(c => c.ClientVehicles)
+                .HasForeignKey(cv => cv.ClientId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             //modelBuilder.Entity<ClientVehicle>()
-            //    .HasOne(cv => cv.VehicleMake)
-            //    .WithMany(vm => vm.ClientVehicles)
-            //    .HasForeignKey(cv => cv.VehicleMakeId)
-            //    .OnDelete(DeleteBehavior.Restrict); // Используем Restrict вместо Cascade
+            //    .HasOne(cv => cv.ClientCompany)
+            //    .WithMany(cc => cc.ClientVehicles)
+            //    .HasForeignKey(cv => cv.ClientCompanyId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ClientVehicle>()
+                .HasOne(cv => cv.VehicleMake)
+                .WithMany(vm => vm.ClientVehicles)
+                .HasForeignKey(cv => cv.VehicleMakeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ClientVehicle>()
                 .HasOne(cv => cv.VehicleModel)
                 .WithMany(vm => vm.ClientVehicles)
                 .HasForeignKey(cv => cv.VehicleModelId)
-                .OnDelete(DeleteBehavior.NoAction); // Используем NoAction вместо Cascade или Restrict
+                .OnDelete(DeleteBehavior.NoAction);
         }
+
     }
 }

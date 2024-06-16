@@ -12,8 +12,8 @@ using RepairShopV2.Data;
 namespace RepairShopV2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240606043951_initial")]
-    partial class initial
+    [Migration("20240615054821_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,10 +57,7 @@ namespace RepairShopV2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ClientCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("ClientCompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -397,7 +394,9 @@ namespace RepairShopV2.Migrations
                 {
                     b.HasOne("RepairShopV2.Models.ClientCompany", "ClientCompany")
                         .WithMany("Clients")
-                        .HasForeignKey("ClientCompanyId");
+                        .HasForeignKey("ClientCompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("ClientCompany");
                 });
@@ -411,15 +410,15 @@ namespace RepairShopV2.Migrations
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("ClientVehicles")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.VehicleMake", "VehicleMake")
                         .WithMany("ClientVehicles")
                         .HasForeignKey("VehicleMakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.VehicleModel", "VehicleModel")
@@ -498,6 +497,11 @@ namespace RepairShopV2.Migrations
             modelBuilder.Entity("RepairShopV2.Models.Category", b =>
                 {
                     b.Navigation("SpareParts");
+                });
+
+            modelBuilder.Entity("RepairShopV2.Models.Client", b =>
+                {
+                    b.Navigation("ClientVehicles");
                 });
 
             modelBuilder.Entity("RepairShopV2.Models.ClientCompany", b =>

@@ -11,9 +11,9 @@
         public string VIN { get; set; } = string.Empty;
         public string LicensePlate { get; set; } = string.Empty;
         public int ClientId { get; set; }
-        public virtual required Client Client { get; set; }
+        public virtual Client? Client { get; set; }
         public int ClientCompanyId { get; set; }
-        public virtual required ClientCompany ClientCompany { get; set; }
+        public virtual ClientCompany? ClientCompany { get; set; }
 
 
     }

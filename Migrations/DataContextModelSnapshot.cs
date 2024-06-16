@@ -392,7 +392,7 @@ namespace RepairShopV2.Migrations
                     b.HasOne("RepairShopV2.Models.ClientCompany", "ClientCompany")
                         .WithMany("Clients")
                         .HasForeignKey("ClientCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ClientCompany");
@@ -407,15 +407,15 @@ namespace RepairShopV2.Migrations
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("ClientVehicles")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.VehicleMake", "VehicleMake")
                         .WithMany("ClientVehicles")
                         .HasForeignKey("VehicleMakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RepairShopV2.Models.VehicleModel", "VehicleModel")
@@ -494,6 +494,11 @@ namespace RepairShopV2.Migrations
             modelBuilder.Entity("RepairShopV2.Models.Category", b =>
                 {
                     b.Navigation("SpareParts");
+                });
+
+            modelBuilder.Entity("RepairShopV2.Models.Client", b =>
+                {
+                    b.Navigation("ClientVehicles");
                 });
 
             modelBuilder.Entity("RepairShopV2.Models.ClientCompany", b =>
