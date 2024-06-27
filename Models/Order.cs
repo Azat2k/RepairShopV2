@@ -10,6 +10,6 @@
         public virtual Client? Client { get; set; }
         public int ClientVehicleId { get; set; }
         public virtual ClientVehicle? ClientVehicle { get; set; }
-        //public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
+        public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
     }
 }
