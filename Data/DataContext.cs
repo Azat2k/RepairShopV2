@@ -58,6 +58,7 @@ namespace RepairShopV2.Data
                 .HasForeignKey(cv => cv.VehicleModelId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
+        public DbSet<RepairShopV2.Models.Order> Order { get; set; } = default!;
 
     }
 }
