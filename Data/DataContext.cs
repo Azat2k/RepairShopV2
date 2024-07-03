@@ -59,6 +59,7 @@ namespace RepairShopV2.Data
                 .OnDelete(DeleteBehavior.NoAction);
         }
         public DbSet<RepairShopV2.Models.Order> Order { get; set; } = default!;
+        public DbSet<RepairShopV2.Models.OrderItem> OrderItem { get; set; } = default!;
 
     }
 }
