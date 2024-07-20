@@ -48,6 +48,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+// Seed roles and admin user
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await IdentityDataInitializer.SeedData(services);
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
