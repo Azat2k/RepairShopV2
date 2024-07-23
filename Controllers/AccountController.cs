@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using RepairShopV2.Identity;
 using RepairShopV2.Models;
+using RepairShopV2.ViewModels;
 
 namespace RepairShopV2.Controllers
 {
@@ -70,7 +71,5 @@ namespace RepairShopV2.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-    }
-    {
     }
 }
