@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using RepairShopV2.Identity;
 using RepairShopV2.Models;
-using RepairShopV2.ViewModels;
+using RepairShopV2.Identity.ViewModels;
 
 namespace RepairShopV2.Controllers
 {

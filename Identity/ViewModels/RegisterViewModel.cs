@@ -1,4 +1,4 @@
-﻿namespace RepairShopV2.ViewModels
+﻿namespace RepairShopV2.Identity.ViewModels
 {
     public class RegisterViewModel
     {
