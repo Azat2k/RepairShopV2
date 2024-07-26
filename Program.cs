@@ -12,26 +12,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Настройка основного контекста
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// Настройка контекста Identity
 builder.Services.AddDbContext<IdentityDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// Настройка Identity
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityDataContext>();
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    // Конфигурация паролей, блокировок, двухфакторной аутентификации и т.д.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
-});
+//builder.Services.Configure<IdentityOptions>(options =>
+//{
+//    // Конфигурация паролей, блокировок, двухфакторной аутентификации и т.д.
+//    options.Password.RequireDigit = true;
+//    options.Password.RequireLowercase = true;
+//    options.Password.RequireUppercase = true;
+//    options.Password.RequireNonAlphanumeric = true;
+//    options.Password.RequiredLength = 6;
+//});
 
 // Установка культуры
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
@@ -49,12 +53,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-// Seed roles and admin user
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    await IdentityDataInitializer.SeedData(services);
-}
+//// Seed roles and admin user
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    await IdentityDataInitializer.SeedData(services);
+//}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
